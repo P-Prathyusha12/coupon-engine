@@ -1,0 +1,122 @@
+{
+	"info": {
+		"_postman_id": "b18a6e4d-7f32-4d2a-a9a3-5c0a324316d8",
+		"name": "Coupon & Discount Engine",
+		"description": "Postman collection for the Enterprise Coupon Engine.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. Create FLAT Coupon",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"code\": \"FLAT50\",\n    \"type\": \"FLAT\",\n    \"discountValue\": 50.00,\n    \"expiryDate\": \"2030-12-31T23:59:59\",\n    \"usageLimit\": 100,\n    \"minOrderValue\": 0.00\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/coupons",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"coupons"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2. Create PERCENTAGE Coupon",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"code\": \"SAVE20\",\n    \"type\": \"PERCENTAGE\",\n    \"discountValue\": 20.00,\n    \"expiryDate\": \"2030-12-31T23:59:59\",\n    \"usageLimit\": 10,\n    \"minOrderValue\": 100.00\n}"
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/coupons",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"coupons"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3. Apply Coupon to Order",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/coupons/apply?orderId=1&couponCode=FLAT50",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"coupons",
+						"apply"
+					],
+					"query": [
+						{
+							"key": "orderId",
+							"value": "1",
+							"description": "Make sure you insert an Order with ID 1 manually in DB first!"
+						},
+						{
+							"key": "couponCode",
+							"value": "FLAT50"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4. Get Order Details",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/coupons/orders/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"coupons",
+						"orders",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
